@@ -1,0 +1,52 @@
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+
+        ListNode *temp = head;
+        int length = 0;
+
+        // Find length
+        while(temp != NULL)
+        {
+            temp = temp->next;
+            length++;
+        }
+
+        // Index of node to delete
+        int index = length - n;
+
+        // Invalid index
+        if(index < 0 || index >= length)
+        {
+            cout << "invalid index";
+            return head;
+        }
+
+        // Delete head
+        if(index == 0)
+        {
+            ListNode *tobeDeleted = head;
+            head = head->next;
+            delete tobeDeleted;
+
+            return head;
+        }
+
+        // Reach node before the node to delete
+        temp = head;
+
+        for(int i = 1; i <= index - 1; i++)
+        {
+            temp = temp->next;
+        }
+
+        // Delete node
+        ListNode *tobeDeleted = temp->next;
+
+        temp->next = temp->next->next;
+
+        delete tobeDeleted;
+
+        return head;
+    }
+};
